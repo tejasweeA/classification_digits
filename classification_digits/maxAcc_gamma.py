@@ -1,11 +1,5 @@
-"""
-================================
-Recognizing hand-written digits
-================================
-This example shows how scikit-learn can be used to recognize images of
-hand-written digits, from 0-9.
-"""
-
+'''
+'''
 print(__doc__)
 
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
@@ -63,18 +57,19 @@ for ax, image, label in zip(axes, digits.images, digits.target):
 n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
 gmvalue = 0.00001
+A=[]
+count=0
+print("Gamma Value:\tAccuracy:\t\tF1_Score:\n")
+maxAcc=0
 while gmvalue!=1000:
-
+        arr=[]
         # Create a classifier: a support vector classifier
-     
-     
         clf = svm.SVC(gamma=gmvalue)
 
         # Split data into 50% train and 50% test subsets
-        X_train, X_test, y_train, y_test = train_test_split(data, digits.target, test_size=0.15, random_state=1)
+        X_train, X_test, y_train, y_test = train_test_split(data, digits.target, test_size=0.3, random_state=1)
 
-        X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.1764, random_state=1)
-       
+        X_test, X_val, y_test, y_val = train_test_split(X_test, y_test, test_size=0.5, random_state=1)
         # Learn the digits on the train subset
         clf.fit(X_train, y_train)
 
@@ -108,6 +103,19 @@ while gmvalue!=1000:
 
         acc = metrics.accuracy_score(y_pred=predicted, y_true=y_test)
         f1 = metrics.f1_score(y_pred=predicted, y_true=y_test, average='macro')
-        print("gmvalue:\t Accuracy:\t F1_Score:")
-        print("{}\t{}\t{}".format(gmvalue,acc,f1))
-        gmvalue = gmvalue*10
+        arr.append(gmvalue)
+        arr.append(acc)
+        arr.append(f1)
+        #print("gmvalue:\t Accuracy:\t F1_Score:")
+        print("{}\t\t{}\t{}".format(gmvalue,acc,f1))
+        A.append(arr)
+        #print("\n arr content",arr)
+        #print("\nA content",A)
+        count=count+1
+        if (acc>maxAcc):
+            maxAcc=acc
+            corr_gamma=gmvalue
+        gmvalue=gmvalue*10
+
+print("\nMax accuracy: {} is found for gamma value:{}\n".format(maxAcc,corr_gamma) )
+
