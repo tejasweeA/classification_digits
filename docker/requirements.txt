@@ -1,3 +1,2 @@
 matplotlib
 sklearn
-pytest==6.2.2
