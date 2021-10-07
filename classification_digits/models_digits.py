@@ -1,8 +1,6 @@
 from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-#from skimage import data, color
-#from skimage.transform import rescale
 import numpy as np
 import os
 import joblib
@@ -11,11 +9,6 @@ import sys
 
 digits = datasets.load_digits()
 
-'''_, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
-for ax, image, label in zip(axes, digits.images, digits.target):
-    ax.set_axis_off()
-    ax.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
-    ax.set_title('Training: %i' % label)'''
 
 print("test_size:")
 test_size = 0.15
@@ -23,8 +16,6 @@ val_size=0.15
 
 print("initial gamma value:")
 gmvalue = 0.00001
-#gmvalue=float(sys.argv[2])
-
 
 
 n_samples = len(digits.images)
@@ -45,13 +36,7 @@ while gmvalue!=1000:
         clf.fit(X_train, y_train)
 
         clf_values = utils.train_model(clf,X_val,y_val)
-        #predicted = clf.predict(X_test)
-
-        #acc = metrics.accuracy_score(y_pred=predicted, y_true=y_test)
-        #f1 = metrics.f1_score(y_pred=predicted, y_true=y_test, average='macro')
-        #arr.append(gmvalue)
-        #arr.append(acc)
-        #arr.append(f1)
+    
         print("{}\t\t{:.17f}\t{}".format(gmvalue,clf_values['acc'],clf_values['f1']), end=" ")
 
         if clf_values['acc'] < 0.11:
@@ -70,15 +55,7 @@ while gmvalue!=1000:
         models_dir = "../model_select/valid_{}_gamma_{}".format((test_size),gmvalue)
         os.mkdir(models_dir)
         joblib.dump(clf,os.path.join(models_dir,"model_info.joblib")) 
-        #A.append(arr)
-
-
-        # if (clf_values['acc']>maxAcc):
-        #     maxAcc=clf_values['acc']
-        #     corr_gamma=gmvalue
-        #     x_test = X_test
-        #     Y_test = y_test
-        # print("")
+     
         gmvalue=gmvalue*10
 
 best_model_dir = utils.model_selection(test_size,corr_gamma)
@@ -88,6 +65,3 @@ acc_load = metrics.accuracy_score(y_pred=pred, y_true=max_y_val)
 f1_load = metrics.f1_score(y_pred=pred, y_true=max_y_val, average='macro')
 
 print("\nMax accuracy: {} is found for gamma value:{} with f1 score as {}\n".format(acc_load,corr_gamma,f1_load))
-
-
-print(utils.hello)

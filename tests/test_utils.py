@@ -13,8 +13,7 @@ data = digits.images.reshape((n_samples, -1))
 
 for gm_val in gamma_val:
     clf = svm.SVC(gamma=gm_val)
-
-
+    
     X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(data,digits.target,test_size,val_size)
     clf.fit(X_train, y_train)
 
