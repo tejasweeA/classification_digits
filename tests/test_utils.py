@@ -29,11 +29,11 @@ val_size = 0.10
 X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,0.2,0.1)
 #clf.fit(X_train, y_train)
 
-X_train=X_train.to_numpy()
-y_train=y_train.to_numpy()
-X_test = X_test.to_numpy()
-y_test = y_test.to_numpy()
-X=X.to_numpy()
+# X_train=X_train.to_numpy()
+# y_train=y_train.to_numpy()
+# X_test = X_test.to_numpy()
+# y_test = y_test.to_numpy()
+# X=X.to_numpy()
 
 xtrain_len = len(X_train)
 xtest_len = len(X_test)
@@ -53,7 +53,7 @@ def test_size():
 #TODO-2
 
 n_samples_1 = 9
-X, y = make_blobs(n_samples=100, centers=2, n_features=2)
+X, y = make_blobs(n_samples=9, centers=2, n_features=2)
 gen_data = DataFrame(dict(x=X[:,0], y=X[:,1], label=y))
 gen_data.label = gen_data.label.map({0:-1, 1:1})
 
@@ -64,23 +64,23 @@ val_size = 0.10
 X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,0.2,0.1)
 #clf.fit(X_train, y_train)
 
-X_train=X_train.to_numpy()
-y_train=y_train.to_numpy()
-X_test = X_test.to_numpy()
-y_test = y_test.to_numpy()
-X=X.to_numpy()
+# X_train=X_train.to_numpy()
+# y_train=y_train.to_numpy()
+# X_test = X_test.to_numpy()
+# y_test = y_test.to_numpy()
+# X=X.to_numpy()
 
 xtrain_len = len(X_train)
 xtest_len = len(X_test)
 xval_len = len(X_val)
 
-train_sample = n_samples_1*0.7
-test_sample = n_samples_1*0.2
-val_sample = n_samples_1*0.1
+train_sample = int(n_samples_1*0.7)
+test_sample = int(n_samples_1*0.2)
+val_sample = int(n_samples_1*0.1)
 
     #train_metrics = utils.train_model(clf,X_train,y_train)
 
 def test_size():
-    assert (train_sample)==xtrain_len
-    assert (test_sample)==xtest_len
-    assert (val_sample)==xval_len
+    assert train_sample==xtrain_len
+    assert test_sample==xtest_len
+    assert val_sample==xval_len
