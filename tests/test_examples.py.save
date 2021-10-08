@@ -1,0 +1,10 @@
+import math
+import m
+def test_sqrt():
+    num=25
+    assert math.sqrt(num)==5
+
+def test_file_path():
+    max_file_path= os.path.join(models_digits.best_model_dir,"model_info.joblib")
+    print(max_file_path)
+    assert os.path.exists('max_file_path')
