@@ -7,8 +7,7 @@ from pandas import DataFrame
 # val_size = 0.1
 
 def split_dataset(data,target,test_size,val_size):
-
-    test_size = test_size+val_size
+    test_size = float(test_size) + float(val_size)
     X_train, X_test_val, y_train, y_test_val = train_test_split(data, target, test_size= test_size, shuffle=False)
     X_test, X_val, y_test, y_val = train_test_split(X_test_val, y_test_val, test_size=val_size / (test_size), shuffle=False)
 

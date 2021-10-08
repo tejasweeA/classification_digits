@@ -8,8 +8,8 @@ from sklearn.datasets import make_blobs
 #import pandas
 
 # digits = datasets.load_digits()
-test_size = 0.2
-val_size=0.10
+test_size = 0.20
+val_size = 0.10
 #gamma_val = [0.00001,0.0001,0.001,0.01]
 
 # n_samples = len(digits.images)
@@ -23,9 +23,10 @@ gen_data = DataFrame(dict(x=X[:,0], y=X[:,1], label=y))
 gen_data.label = gen_data.label.map({0:-1, 1:1})
 
 X, y = gen_data[['x','y']], gen_data.label
+test_size = 0.20
+val_size = 0.10
 
-
-X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,test_size,val_size)
+X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,0.2,0.1)
 #clf.fit(X_train, y_train)
 
 X_train=X_train.to_numpy()
@@ -45,9 +46,9 @@ train_sample = n_samples_1*0.7
 test_sample = n_samples_1*0.2
 val_sample = n_samples_1*0.1
 def test_size():
-    assert (train_sample)==xtrain_len
-    assert (test_sample)==xtest_len
-    assert (val_sample)==xval_len
+    assert train_sample == xtrain_len
+    assert test_sample == xtest_len
+    assert val_sample ==xval_len
 
 #TODO-2
 
@@ -57,9 +58,10 @@ gen_data = DataFrame(dict(x=X[:,0], y=X[:,1], label=y))
 gen_data.label = gen_data.label.map({0:-1, 1:1})
 
 X, y = gen_data[['x','y']], gen_data.label
+test_size = 0.20
+val_size = 0.10
 
-
-X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,test_size,val_size)
+X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(X,y,0.2,0.1)
 #clf.fit(X_train, y_train)
 
 X_train=X_train.to_numpy()
