@@ -1,7 +1,7 @@
 MLOPS
 -----quiz2
 
-![image](https://user-images.githubusercontent.com/89181401/136528308-8efad533-dc8f-4443-8141-908117115ea8.png)
+![quiz2](https://user-images.githubusercontent.com/89181401/136528568-9e2901b8-d16b-4d3a-902e-0832d29b0cbb.png)
 
 
 
