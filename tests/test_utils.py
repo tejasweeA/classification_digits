@@ -26,11 +26,14 @@ for data_len in data_samples:
     xtrain_len = len(X_train)
     xtest_len = len(X_test)
     xval_len = len(X_val)
+    x_len = len(X)
 
     train_sample = round(data_len*0.7)
     test_sample = round(data_len*0.2)
     val_sample = round(data_len*0.1)
+    sum = train_sample + test_sample + val_sample
     def test_size():
         assert train_sample == xtrain_len
         assert test_sample == xtest_len
         assert val_sample ==xval_len
+        assert sum == x_len
