@@ -75,9 +75,9 @@ xtrain_len = len(X_train)
 xtest_len = len(X_test)
 xval_len = len(X_val)
 
-train_sample = int(n_samples_1*0.7)
-test_sample = int(n_samples_1*0.2)
-val_sample = int(n_samples_1*0.1)
+train_sample = round(n_samples_1*0.7)
+test_sample = round(n_samples_1*0.2)
+val_sample = round(n_samples_1*0.1)
 
     #train_metrics = utils.train_model(clf,X_train,y_train)
 
