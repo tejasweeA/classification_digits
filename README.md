@@ -1,12 +1,8 @@
 MLOPS
------
+-----quiz2
 
-Saving the trained models using joblib library in folders(not in primary memory).
+![image](https://user-images.githubusercontent.com/89181401/136528308-8efad533-dc8f-4443-8141-908117115ea8.png)
 
-Loading a model which gives high accuracy among others.
-
-
-![image](https://user-images.githubusercontent.com/89181401/134539349-93d8b45f-9d72-4ddb-8b5e-8c22fb83917d.png)
 
 
 
