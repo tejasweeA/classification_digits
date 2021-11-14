@@ -16,18 +16,14 @@ test_size = float(input())
 
 val_size = test_size
 
-
 n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
 A=[]
 count=0
 
-print("Split:\tSVM:\t\tGamma value\tDecision Tree:\t\tMax_Depth\n")
+print("Split:\tSVM:\t\t  Gamma value\tDecision Tree:\t\tMax_Depth\n")
 
 classifiers = ['SVM','Decision_Tree']
-best_clf = []
-acc_svm=0
-acc_dt=0
 acc_svm=[]
 acc_dt=[]
 for sp in range(0,5):
@@ -46,15 +42,14 @@ for sp in range(0,5):
             for hp in hyperparameter:
                 clf = tree.DecisionTreeClassifier(max_depth=hp)
                 classify.append(clf)
+
         max_acc = 0
         best_hp = 0
         for clf, hp in zip(classify, hyperparameter):
             X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(data,digits.target,test_size,val_size)
-
             clf.fit(X_train, y_train)
-
             clf_values = utils.train_model(clf,X_val,y_val)
-            #print("\n{}\t\t{:.17f}\t{}".format(hp,clf_values['acc'],clf_values['f1']), end=" ")
+
             if clf_values['acc']>max_acc:
                 max_acc = clf_values['acc']
                 best_hp = hp
