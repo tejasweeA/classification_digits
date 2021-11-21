@@ -18,6 +18,6 @@ def train_model(clf,X,y):
     model_values["acc"] = acc
     model_values["f1"] = f1_score
 
-    return model_values	
+    return model_values, predicted
 
 
