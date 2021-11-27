@@ -8,11 +8,12 @@ import numpy as np
 import os
 import joblib
 import utils
+import random
 
 digits = datasets.load_digits()
 
-print("test_size:")
-test_size = float(input())
+
+test_size = 0.15
 
 val_size = test_size
 
@@ -22,49 +23,35 @@ data = digits.images.reshape((n_samples, -1))
 A=[]
 count=0
 
-print("Split:\tSVM:\t\tGamma value\tDecision Tree:\t\tMax_Depth\n")
+print("\nHyperparameters:           RUN1                       RUN2                 RUN3                  Mean\n")
+print("  C value    Gamma     Train  Dev   Test       Train  Dev  Test       Train  Dev  Test       Train  Dev  Test\n")
 
-classifiers = ['SVM','Decision_Tree']
-best_clf = []
-acc_svm=0
-acc_dt=0
-acc_svm=[]
-acc_dt=[]
-for sp in range(0,5):
-    split = []
-    for clfs in classifiers:
-        classify = []
-        clf_values =[]
-        if clfs == 'SVM':
-            hyperparameter = [0.00001,0.0001,0.001,0.01,0.1,1.0]
-            for gmvalue in hyperparameter:
-                clf = svm.SVC(gamma = gmvalue)
-                classify.append(clf)
+c_value=[0.001,10,1000]
+gamma_val=[0.001,0.01,1]
+for sp in range(0,3):
+    c_val = random.choice(c_value)
+    gmval=random.choice(gamma_val)
+    train_acc=[]
+    val_acc=[]
+    test_acc=[]
+    for i in range(0,3):
 
-        else:
-            hyperparameter = [4,5,6,8]
-            for hp in hyperparameter:
-                clf = tree.DecisionTreeClassifier(max_depth=hp)
-                classify.append(clf)
-        max_acc = 0
-        best_hp = 0
-        for clf, hp in zip(classify, hyperparameter):
-            X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(data,digits.target,test_size,val_size)
+        X_train, X_test, X_val, y_train,y_test,y_val = utils.split_dataset(data,digits.target,test_size,val_size)
 
-            clf.fit(X_train, y_train)
-
-            clf_values = utils.train_model(clf,X_val,y_val)
-            #print("\n{}\t\t{:.17f}\t{}".format(hp,clf_values['acc'],clf_values['f1']), end=" ")
-            if clf_values['acc']>max_acc:
-                max_acc = clf_values['acc']
-                best_hp = hp
-        if clfs == 'SVM':
-            acc_svm.append(max_acc)
-            print("\n {} \t{} \t{} \t".format(sp,format(max_acc,'.16f'),best_hp),end='')
-        else:
-            acc_dt.append(max_acc)
-            print("{} \t{}".format(format(max_acc,'.16f'),best_hp))
+        clf = svm.SVC(gamma = gmval, C=c_val)
+        # classify.append(clf)
+        clf.fit(X_train, y_train)
+        clf_values_train = utils.train_model(clf,X_train,y_train)
+        clf_values_val = utils.train_model(clf,X_val,y_val)
+        clf_values_test = utils.train_model(clf,X_test,y_test)
+        print(end=" ")
+        # print("\n{:.4f}\t{:.4f}\t{:.4f}".format(clf_values_train['acc'],clf_values_val['acc'],clf_values_test['acc'], end=" "))
+        train_acc.append(clf_values_train['acc'])
+        val_acc.append(clf_values_val['acc'])
+        test_acc.append(clf_values_test['acc'])
+    
+    print("{:.3f}  {:.3f}   ".format(c_val,gmval),end=" ")
+    for j in range(0,3):
+        print("{:.4f} {:.4f} {:.4f}   ".format(train_acc[j],val_acc[j],test_acc[j]), end=" ")
+    print("{:.4f} {:.4f} {:.4f}".format(np.mean(train_acc),np.mean(val_acc),np.mean(test_acc)))
     print("")
-
-print("\n SVM:\n-----\n Mean:{}  Standard deviation:{}".format(np.mean(acc_svm),np.std(acc_svm)))
-print("\n Decision Tree:\n----------\n Mean:{}  Standard deviation:{}".format(np.mean(acc_dt),np.std(acc_dt)))
