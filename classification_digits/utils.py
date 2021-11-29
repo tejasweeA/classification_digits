@@ -2,10 +2,12 @@ from sklearn.model_selection import train_test_split
 from sklearn import datasets, svm, metrics
 
 
-def split_dataset(data,target,test_size,val_size):
+def split_dataset(data,target,train_data):
+    test_data=0.1
+    val_data=0.1
 
-    X_train, X_test_val, y_train, y_test_val = train_test_split(data, target, test_size= test_size+val_size, shuffle=False)
-    X_test, X_val, y_test, y_val = train_test_split(X_test_val, y_test_val, test_size=val_size / (test_size + val_size), shuffle=False)
+    X_train, X_test, y_train, y_test = train_test_split(data, target, train_size=train_data, shuffle=False)
+    X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, train_size=(val_data/(val_data + test_data)), shuffle=False)
 
     return X_train, X_test, X_val, y_train,y_test,y_val
 
