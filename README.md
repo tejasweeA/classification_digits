@@ -46,8 +46,8 @@ Output obtained on the terminal:
 
 Below given snippet shows the metrics of f1 score and accuracy of test dataset, respective gamma values, train split (in terms of percentage) and f1 score and accuracy of validation dataset.
 
- 
-![image](https://user-images.githubusercontent.com/89181401/143924007-3126ba5d-2e6d-4aec-a201-05b0caef7920.png)
+![image](https://user-images.githubusercontent.com/89181401/144608853-d7253dc1-090c-46df-ba09-40d505c35149.png)
+
 
 Conclusion:
 
